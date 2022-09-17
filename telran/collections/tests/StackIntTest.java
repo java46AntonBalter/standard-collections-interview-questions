@@ -31,6 +31,9 @@ class StackIntTest {
 		stack.push(-1);
 		assertFalse(stack.isEmpty());
 		assertEquals(-1, stack.pop());
+		StackInt stack2 = new StackInt(1);
+		stack2.push(0);
+		assertThrows(StackOverflowError.class, () -> stack2.push(1));
 	}
 
 	@Test
