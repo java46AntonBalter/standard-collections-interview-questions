@@ -21,8 +21,7 @@ public class StackInt {
 		if (top < 0) {
 			throw new NoSuchElementException();
 		}
-		int popped = stackArr[top--];
-		return popped;
+		return stackArr[top--];
 	}
 
 	public void push(int number) throws Error {
@@ -42,7 +41,7 @@ public class StackInt {
 		return top < 0 ? true : false;
 	}
 
-	public int getMaxNumber() throws Exception{
+	public int getMaxNumber() throws Exception {
 		if (top < 0) {
 			throw new NoSuchElementException();
 		}
