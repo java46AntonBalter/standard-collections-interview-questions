@@ -1,50 +1,40 @@
 package telran.util;
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class StackInt {
-	private static final int MAX_SIZE = 1000;
-	private int top = -1;
-	private int[] stackArr;
-	private int[] maxNumberArr;
-
-	public StackInt(int stackSize) {
-		stackArr = new int[stackSize];
-		maxNumberArr = new int[stackSize];
+	private LinkedList<Integer> numbers = new LinkedList<>();
+	private LinkedList<Integer> maxNumbers = new LinkedList<>();
+public int pop() {
+	//removes last number and returns removed number
+	//throws exception NoSuchElementException for empty stack
+	if (numbers.isEmpty()) {
+		throw new NoSuchElementException();
 	}
-
-	public StackInt() {
-		this(MAX_SIZE);
+	int res = numbers.removeLast();
+	if (res == maxNumbers.getLast()) {
+		maxNumbers.removeLast();
 	}
-
-	public int pop() throws Exception {
-		if (top < 0) {
-			throw new NoSuchElementException();
-		}
-		return stackArr[top--];
+	return res;
+}
+public void push(int number) {
+	//adds number at end of a stack
+	numbers.add(number);
+	if (maxNumbers.isEmpty() || number >= maxNumbers.getLast()) {
+		maxNumbers.add(number);
 	}
-
-	public void push(int number) throws Error {
-		if (top >= (stackArr.length - 1)) {
-			throw new StackOverflowError();
-		}
-		if (top < 0 || number > maxNumberArr[top]) {
-			maxNumberArr[++top] = number;
-			stackArr[top] = number;
-		} else {
-			stackArr[++top] = number;
-			maxNumberArr[top] = maxNumberArr[top - 1];
-		}
+}
+public boolean isEmpty() {
+	//returns true if a stack is empty
+	return numbers.isEmpty();
+}
+public int getMaxNumber() {
+	//returns maximal number existing in a stack
+	//throws exception NoSuchElementException for empty stack
+	if (maxNumbers.isEmpty()) {
+		throw new NoSuchElementException();
 	}
-
-	public boolean isEmpty() {
-		return top < 0 ? true : false;
-	}
-
-	public int getMaxNumber() throws Exception {
-		if (top < 0) {
-			throw new NoSuchElementException();
-		}
-		return maxNumberArr[top];
-	}
+	return maxNumbers.getLast();
+}
 }
